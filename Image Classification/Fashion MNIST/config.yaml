@@ -1,0 +1,15 @@
+sample_payload: "sample_payload.json"
+EXPT_DIR: "./log"
+DATA_DIR: "./data"
+WEIGHTS_DIR: "./weights"
+exp_name: "fashion-mnist-experiment-1"
+
+### TRAIN FUNCTION ARGS ###
+train_epochs: 25
+batch_size: 64
+train_size: 60000
+test_size: 10000
+learning_rate: 1e-4
+momentum: 0.9
+split_train: 0.80
+DATASET: "MNIST"
