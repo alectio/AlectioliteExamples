@@ -9,10 +9,10 @@ classification problems. We will use the [Reuters](https://martin-thoma.com/nlp-
 | interest   | FED EXPECTED TO ADD RESERVES The Federal Reserve is expected to enter the U.S. government securities market to add reserves during its usual intervention period today, economists said. With federal funds trading at a steady 6-3/16 pct, most economists expect an indirect injection of temporary reserves via a medium-sized round of customer repurchase agreements. However, some economists said the Fed may arrange more aggressive system repurchase agreements. Economists would also not rule out an outright bill pass early this afternoon. Such action had been widely anticipated yesterday but failed to materialize.
 
 
-### 1. Set up a virtual environment and install Alectiolite SDK
+### 1. Set up a virtual environment and install Alectio SDK
 Before getting started, please make sure you completed the [initial installation instructions](../../README.md) to set-up your environment. 
 
-To recap, the steps were setting up a virtual environment and then installing the Alectiolite SDK in that environment. 
+To recap, the steps were setting up a virtual environment and then installing the AlectioSDK in that environment. 
 
 To install the AlectioSDK from within the current directory (`./examples/NLP_classification`) run:
 
@@ -26,21 +26,13 @@ Next, go to the Alectio Frontend and download the API key by hitting the `DOWNLO
 
 First, point your terminal to the directory of this Readme file. Your terminal should look like this:
 ```bash 
-(env)$~/AlectioliteExamples/NLP_classification
+(env)$~/AlectioSDK/examples/NLP_classification
 ```
-Then, clone the `hedwig` repo, which contains our main model
+Then, clone the `SDK_Reuters` branch of the topic classification repo. 
 ```shell
-git clone https://github.com/castorini/hedwig
+git clone --depth 1 -b SDK_Reuters --single-branch git@gitlab.com:AntonMu/reuters_hedwig.git
 ```
-
-For the latest changes (which are still not merged), fetch the pull request
-
-```shell
-git fetch origin pull/81/head:upgraded_for_transformers-4.19
-git checkout upgraded_for_transformers-4.19
-```
-
-If successful, you should have a folder within your SDK repo called `hedwig`. It should look like this:
+If successful, you should have a folder within your SDK repo called `reuters_hedwig`. It should look like this:
 
 ```
 ├── examples
@@ -57,49 +49,11 @@ Then install pytorch with
 pip install torch==1.5.0+cu92 torchvision==0.6.0+cu92 -f https://download.pytorch.org/whl/torch_stable.html
 
 ```
-
-then the remaining requirements. some of the dependencies are old, so lets make sure we install the latest-ones
-
-```shell
-sed -i -e 's/transformers==2.1.1/transformers/g' requirements.txt
-sed -i -e 's/numpy.*/numpy/g' requirements.txt
-sed -i -e 's/scikit-learn.*/scikit-learn/g' requirements.txt
-sed -i -e 's/scipy.*/scipy/g' requirements.txt
-````
-
+and then the remaining requirements via:
 ```
-pip install -r requirements.txt
+pip install -r reuters_hedwig/requirements.txt
 ```
 
-Now download the Reuters, AAPD, and IMDB datasets, along with word2vec embeddings.
-```
-git clone https://git.uwaterloo.ca/jimmylin/hedwig-data.git
-```
-
-Cloning can take lot of time, so we will take a shortcut. We will download zip file from google-drive and unzip it. 
-
-install gdown to download zip file from google-drive
-
-```shell
-cd ..
-gdown 1qHgNuSMbDa8qETW_6SAKpLEQQG3JQY8H
-unzip hedwig-data.zip #unzip the downloaded file
-```
-
-Incase, you want to run and verify model without Alectio-sdk
-
-```shell
-cd hedwig
-python -m models.bert --dataset Reuters --model bert-base-uncased \  --max-seq-length 256 --batch-size 16 --lr 2e-5 --epochs 30
-```
-
-Now, reuters repo expects hedwig-data in parent folder, so create a symlink to hedwig-data from parent folder
-
-```shell
-cd /content/AlectioliteExamples
-ln -s NLP_classification/hedwig-data hedwig-data
-cd /content/AlectioliteExamples/NLP_classification
-```
 
 ### 4. Build Model
 We use the BERT topic classification model that is already implemented in the reuters-hedwig repo. 
